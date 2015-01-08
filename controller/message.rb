@@ -29,5 +29,6 @@ EOS
     if today_tasks.empty?
       today_tasks = "本日のタスクはありません。"
     end
+    today_tasks
   end
 end
