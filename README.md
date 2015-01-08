@@ -1,0 +1,2 @@
+# TodoistToSlack
+TodoistのタスクをSlackに投げるアプリ
