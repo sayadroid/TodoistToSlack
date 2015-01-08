@@ -1,0 +1,9 @@
+todoist:
+ api_url: ''
+ token: ''
+ project_id: ''
+slack:
+ token: ''
+ channel: '#'
+ user_name: ''
+ icon_emoji: ''
