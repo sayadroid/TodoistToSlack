@@ -10,6 +10,9 @@ class Message
     message = <<"EOS"
 # 本日（#{Date.today}）のタスク
 #{tasks['today']}
+
+# 明日（#{Date.today+1}）のタスク
+#{tasks['tomorrow']}
 EOS
   end
 
