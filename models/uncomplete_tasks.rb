@@ -6,11 +6,11 @@ class UncompleteTasks
   @@config = YAML::load_file(File.join(__dir__, '/../config/config.yaml'))
   @@todoist = Todoist.new
 
-  def getUncompleteTasks()
+  def getUncompleteTasks(day)
     uncomplete_items = @@todoist.getUncompletedItems(@@config['todoist']['project_id'])
 
-    today_tasks = getOnedayUncompleteTasks(uncomplete_items, Date.today)
-    tomorrow_tasks = getOnedayUncompleteTasks(uncomplete_items, Date.today+1)
+    today_tasks = getOnedayUncompleteTasks(uncomplete_items, day)
+    tomorrow_tasks = getOnedayUncompleteTasks(uncomplete_items, day)
     {'today' => today_tasks, 'tomorrow' => tomorrow_tasks}
   end
 

@@ -8,21 +8,27 @@ class Message
   @@completed_tasks = CompletedTasks.new
 
   def getTodayTasks()
-    uncomplete_tasks = @@uncomplete_tasks.getUncompleteTasks()
+    today = Date.today
+    uncomplete_tasks = @@uncomplete_tasks.getUncompleteTasks(today)
+
     message = <<"EOS"
-# 本日（#{Date.today}）のタスク
+# 本日（#{today}）のタスク
 #{uncomplete_tasks['tomorrow']}
 EOS
   end
 
   def getTomorrowTasksAndCompleyedTasks()
-    uncomplete_tasks = @@uncomplete_tasks.getUncompleteTasks()
-    completed_tasks = @@completed_tasks.getCompletedTasks(Date.today)
+    today = Date.today
+    tomorrow = Date.today+1
+
+    uncomplete_tasks = @@uncomplete_tasks.getUncompleteTasks(tomorrow)
+    completed_tasks = @@completed_tasks.getCompletedTasks(today)
+
     message = <<"EOS"
-# 明日（#{Date.today+1}）のタスク
+# 明日（#{tomorrow}）のタスク
 #{uncomplete_tasks['tomorrow']}
 
-# 本日（#{Date.today}） 完了したタスク
+# 本日（#{today}） 完了したタスク
 #{completed_tasks}
 EOS
   end
