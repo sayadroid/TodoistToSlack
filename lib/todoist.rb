@@ -10,6 +10,13 @@ class Todoist
     api_request(request_url)
   end
 
+  # Return items with a complete date same or older than from_date
+  # (formated as "2007-4-29T10:13").
+  def getCompletedItemsByDate(project_id, from_date)
+    request_url = create_url('getAllCompletedItems', {:token => @@config['todoist']['token'], :project_id => project_id, :from_date => from_date})
+    api_request(request_url)
+  end
+
   def api_request(request_url)
     res = open(request_url)
     code, message = res.status
