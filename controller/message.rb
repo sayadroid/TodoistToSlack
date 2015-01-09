@@ -8,7 +8,7 @@ class Message
   def get()
     tasks = getTasks()
     message = <<"EOS"
-# #{Date.today}のタスク
+# #{Date.today}
 #{tasks}
 EOS
   end
@@ -27,7 +27,7 @@ EOS
       end
     end
     if today_tasks.empty?
-      today_tasks = "本日のタスクはありません。"
+      today_tasks = "本日の運用作業はありません。"
     end
     today_tasks
   end
