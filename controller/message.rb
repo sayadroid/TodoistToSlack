@@ -18,17 +18,21 @@ EOS
     todoist = Todoist.new
     uncomplete_items = todoist.getUncompletedItems(config['todoist']['project_id'])
 
-    today_tasks = ''
-    uncomplete_items.each do |task|
+    getOnedayTasks(uncomplete_items, Date.today)
+  end
+
+  def getOnedayTasks(tasks, day)
+    day_tasks = ''
+    tasks.each do |task|
       unless task['due_date'].nil? then
-        if Date.today === Date.parse(task['due_date']) then
-          today_tasks << "* #{task["content"]} \n"
+        if day === Date.parse(task['due_date']) then
+          day_tasks << "* #{task["content"]} \n"
         end
       end
     end
-    if today_tasks.empty?
-      today_tasks = "本日のタスクはありません。"
+    if day_tasks.empty? then
+      day_tasks = "タスクはありません。"
     end
-    today_tasks
+    day_tasks
   end
 end
