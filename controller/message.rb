@@ -22,7 +22,7 @@ EOS
     uncomplete_items.each do |task|
       unless task['due_date'].nil? then
         if Date.today === Date.parse(task['due_date']) then
-          today_tasks << "・#{task["content"]} \n"
+          today_tasks << "* #{task["content"]} \n"
         end
       end
     end
