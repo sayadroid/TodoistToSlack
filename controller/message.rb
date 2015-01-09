@@ -6,29 +6,35 @@ require './lib/slack.rb'
 class Message
 
   def get()
-    tasks = getTasks()
+    tasks = getUncompletedTasks()
     message = <<"EOS"
-# #{Date.today}のタスク
-#{tasks}
+# 本日（#{Date.today}）のタスク
+#{tasks['today']}
 EOS
   end
 
-  def getTasks()
+  def getUncompletedTasks()
     config = YAML::load_file(File.join(__dir__, '/../config/config.yaml'))
     todoist = Todoist.new
     uncomplete_items = todoist.getUncompletedItems(config['todoist']['project_id'])
 
-    today_tasks = ''
-    uncomplete_items.each do |task|
+    today_tasks = getOnedayTasks(uncomplete_items, Date.today)
+    tomorrow_tasks = getOnedayTasks(uncomplete_items, Date.today+1)
+    {'today' => today_tasks, 'tomorrow' => tomorrow_tasks}
+  end
+
+  def getOnedayTasks(tasks, day)
+    day_tasks = ''
+    tasks.each do |task|
       unless task['due_date'].nil? then
-        if Date.today === Date.parse(task['due_date']) then
-          today_tasks << "* #{task["content"]} \n"
+        if day === Date.parse(task['due_date']) then
+          day_tasks << "* #{task["content"]} \n"
         end
       end
     end
-    if today_tasks.empty?
-      today_tasks = "本日のタスクはありません。"
+    if day_tasks.empty? then
+      day_tasks = "タスクはありません。"
     end
-    today_tasks
+    day_tasks
   end
 end
