@@ -24,7 +24,7 @@ class UncompleteTasks
       end
     end
     if day_tasks.empty? then
-      day_tasks = "タスクはありません。"
+      day_tasks = "運用作業はありません。"
     end
     day_tasks
   end

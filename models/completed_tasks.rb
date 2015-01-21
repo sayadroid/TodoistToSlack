@@ -7,13 +7,15 @@ class CompletedTasks
 
   def getCompletedTasks(day)
     completed_tasks = @@todoist.getCompletedItemsByDate(@@config['todoist']['project_id'], day)
-    getCompletedTaskContents(completed_tasks)
+    getCompletedTaskContents(completed_tasks, day)
   end
 
-  def getCompletedTaskContents(tasks)
+  def getCompletedTaskContents(tasks, day)
     day_tasks = ''
     tasks['items'].each do |task|
-      day_tasks << "* #{task["content"]} \n"
+      if day  === Date.parse(task['completed_date']) then
+        day_tasks << "* #{task["content"]} \n"
+      end
     end
     if day_tasks.empty?
       day_tasks = "完了したタスクはありません。"
